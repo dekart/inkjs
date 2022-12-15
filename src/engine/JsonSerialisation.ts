@@ -580,6 +580,10 @@ export class JsonSerialisation {
     choice.sourcePath = jObj["originalChoicePath"].toString();
     choice.originalThreadIndex = parseInt(jObj["originalThreadIndex"]);
     choice.pathStringOnChoice = jObj["targetPath"].toString();
+
+    if (jObj["tags"] != undefined)
+      choice.tags = jObj["tags"].toString().split("#");
+
     return choice;
   }
 
@@ -590,6 +594,10 @@ export class JsonSerialisation {
     writer.WriteProperty("originalChoicePath", choice.sourcePath);
     writer.WriteIntProperty("originalThreadIndex", choice.originalThreadIndex);
     writer.WriteProperty("targetPath", choice.pathStringOnChoice);
+
+    if (choice.tags != undefined)
+      writer.WriteProperty("tags", choice.tags.join("#"));
+
     writer.WriteObjectEnd();
   }
 
